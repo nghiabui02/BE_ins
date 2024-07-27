@@ -1,5 +1,4 @@
 import {AppDataSource} from "../data-source";
-import {User} from "../entity/user";
 import {Blog} from "../entity/blogs";
 import { FindOptionsWhere, ObjectId, Repository} from "typeorm";
 

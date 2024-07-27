@@ -1,7 +1,4 @@
 import {AppDataSource} from "../data-source";
-import {User} from "../entity/user";
-import {Blog} from "../entity/blogs";
-import {Like} from "../entity/like";
 import {Comment} from "../entity/comment";
 
 class CommentService{
