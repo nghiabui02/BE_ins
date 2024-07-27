@@ -19,7 +19,6 @@ class BlogController {
             const hours = currentDate.getHours();
             const minutes = currentDate.getUTCMinutes();
             const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}`;
-            console.log(hours);
             const blog = new blogs_1.Blog();
             blog.tittle = req.body.tittle;
             blog.date = formattedDate;

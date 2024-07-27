@@ -15,7 +15,7 @@ function auth(req, res, next) {
                 if (err) {
                     res.status(401).json({
                         error: err.message,
-                        message: 'Mày là thằng đéo nào'
+                        message: 'Please sign in to continue'
                     });
                 }
                 else {
@@ -26,13 +26,13 @@ function auth(req, res, next) {
         }
         else {
             res.status(401).json({
-                message: 'Mày là thằng đéo nào'
+                message: 'Please sign in to continue'
             });
         }
     }
     else {
         res.status(401).json({
-            message: 'Mày là thằng đéo nào'
+            message: 'Please sign in to continue'
         });
     }
 }

@@ -1,13 +1,17 @@
-import "reflect-metadata"
-import { DataSource } from "typeorm"
+import "reflect-metadata";
+import { DataSource } from "typeorm";
+import * as dotenv from "dotenv";
+import * as process from "node:process";
+
+dotenv.config();
 
 export const AppDataSource = new DataSource({
     type: "mysql",
-    host: "127.0.0.1",
-    port: 3306,
-    username: "root",
-    password: "123456",
-    database: "MD5",
-    synchronize: false,
+    host: process.env.DB_HOST,
+    port: Number(process.env.DB_PORT),
+    username: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    synchronize: true,
     entities: ["dist/src/entity/*.js"]
-})
+});

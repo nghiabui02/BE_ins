@@ -7,11 +7,11 @@ export default function auth(req , res, next) {
 
         let accessToken = req.headers.authorization.split(' ')[1];
         if (accessToken) {
-            jwt.verify(accessToken, SECRET, (err, payload) => {
+            jwt.verify(accessToken, SECRET, (err: { message: any; }, payload: any) => {
                 if (err) {
                     res.status(401).json({
                         error: err.message,
-                        message: 'Mày là thằng đéo nào'
+                        message: 'Please sign in to continue'
                     })
                 } else {
                     req.decode = payload;
@@ -20,12 +20,12 @@ export default function auth(req , res, next) {
             })
         } else {
             res.status(401).json({
-                message: 'Mày là thằng đéo nào'
+                message: 'Please sign in to continue'
             })
         }
     } else {
         res.status(401).json({
-            message: 'Mày là thằng đéo nào'
+            message: 'Please sign in to continue'
         })
     }
 }

@@ -5,7 +5,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const blogController_1 = __importDefault(require("../controller/blogController"));
+const middleware_1 = __importDefault(require("../middleWare/middleware"));
 const blogRouter = (0, express_1.Router)();
+blogRouter.use(middleware_1.default);
 blogRouter.get('/', blogController_1.default.findAll);
 blogRouter.post('/', blogController_1.default.add);
 blogRouter.delete('/:id', blogController_1.default.delete);

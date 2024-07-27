@@ -16,12 +16,11 @@ class BlogController{
 
         const currentDate = new Date();
         const year = currentDate.getFullYear();
-        const month = currentDate.getMonth() + 1; // Tháng được đánh số từ 0 đến 11, nên cần cộng thêm 1
+        const month = currentDate.getMonth() + 1;
         const day = currentDate.getDate();
         const hours = currentDate.getHours()
         const minutes = currentDate.getUTCMinutes()
         const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}`;
-        console.log(hours)
 
         const blog = new Blog();
         blog.tittle = req.body.tittle;
