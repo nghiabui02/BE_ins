@@ -15,15 +15,21 @@ class AuthController {
         user.name = req.body.name;
         user.username = req.body.username;
         user.password = req.body.password;
+        user.email = req.body.email;
 
         const errors = await validate(user);
         if (errors.length > 0) {
-            return res.status(400).json(errors);
+            return res.status(400).json({ errors: errors.map(err => err.constraints) });
         }
 
-        let result = await this.authService.register(req.body);
-        res.json(result);
+        try {
+            let result = await authService.register(req.body);
+            res.status(201).json(result);
+        } catch (error) {
+            return res.status(400).json({ message: 'Username or email already exists' });
+        }
     }
+
 
     login = async (req: Request, res: Response) => {
         try {

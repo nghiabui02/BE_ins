@@ -1,4 +1,3 @@
-import blogService from "../service/blogService";
 import {Request, Response} from "express";
 import commentService from "../service/commentService";
 import messageService from "../service/messageService";

@@ -3,7 +3,7 @@ import {AppDataSource} from "../data-source";
 import jwt from "jsonwebtoken";
 import {SECRET} from "../middleWare/middleware";
 import bcrypt from 'bcrypt'
-import { Repository } from "typeorm";
+import {QueryFailedError, Repository} from "typeorm";
 
 class AuthService {
     private Repository: Repository<User>;
@@ -11,10 +11,26 @@ class AuthService {
         this.Repository = AppDataSource.getRepository(User);
     }
 
-    register = async (user: any) => {
-        user.password = await bcrypt.hash(user.password, 10);
-        return this.Repository.save(user);
+    async register(userData: any) {
+        try {
+            const user = this.Repository.create(userData);
+            await this.Repository.save(user);
+            return { message: 'User registered successfully' };
+        } catch (error) {
+            if (error instanceof QueryFailedError) {
+                if (error.message.includes('unique constraint')) {
+                    if (error.message.includes('username')) {
+                        throw new Error('Username already exists');
+                    }
+                    if (error.message.includes('email')) {
+                        throw new Error('Email already exists');
+                    }
+                }
+            }
+            throw new Error('Error registering user');
+        }
     }
+
 
     checkUser = async (user: any) => {
         try{
@@ -30,10 +46,10 @@ class AuthService {
                         role: 'admin',
                         image : userFind.image
                     }
-                    payload["token"]= jwt.sign(payload, SECRET, {
+                    let token = jwt.sign(payload, SECRET, {
                         expiresIn: 36000 * 10 * 100
-                    })
-                    return payload
+                    });
+                    return `Bearer ${token}`;
                 } else {
                     return 'Password is wrong'
                 }

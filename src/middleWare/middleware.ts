@@ -1,5 +1,4 @@
 import jwt from 'jsonwebtoken';
-import {Request} from "express";
 export const SECRET = '123456'
 export default function auth(req , res, next) {
     let authorization = req.headers.authorization;
